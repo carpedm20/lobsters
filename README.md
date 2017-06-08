@@ -76,9 +76,9 @@ in a `config/initializers/production.rb` or similar file:
 
 * Seed the database to create an initial administrator user and at least one tag:
 
-          lobsters$ rake db:seed
-          created user: test, password: test
-          created tag: test
+          lobsters$ rake db:reset db:migrate db:schema:load db:seed
+          created user: carpedm20, password: carpedm20
+          created tag: carpedm20
 
 * Run the Rails server in development mode.  You should be able to login to
 `http://localhost:3000` with your new `test` user:
