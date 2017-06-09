@@ -3,7 +3,6 @@ require 'slack-ruby-client'
 def slack_post(pretext, title, text, link)
   out = Rails.application.config.slack_client.chat_postMessage(
     channel: "#ml_research",
-    as_user: true,
     attachments: [
       {
         pretext: pretext,

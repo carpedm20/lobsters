@@ -21,7 +21,7 @@ class StoriesController < ApplicationController
           "+1")
 
         pretext = "A new story posted by @#{@user.username}"
-        out = slack_post(pretext, @story.title, @story.description, @story.url)
+        out = slack_post(pretext, @story.title, @story.description, @story.comments_path)
 
         return redirect_to @story.comments_path
       end
