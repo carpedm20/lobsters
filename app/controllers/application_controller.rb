@@ -1,3 +1,19 @@
+require 'slack-ruby-client'
+
+def slack_post(pretext, title, text, link)
+  out = Rails.application.config.slack_client.chat_postMessage(
+    channel: "#ml_research",
+    as_user: true,
+    attachments: [
+      {
+        pretext: pretext,
+        title: title,
+        title_link: link.gsub('https', 'http'),
+        text: text,
+      }
+    ])
+end
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_user
@@ -6,6 +22,16 @@ class ApplicationController < ActionController::Base
   TRAFFIC_DECREMENTER = 0.40
 
   TAG_FILTER_COOKIE = :tag_filters
+
+  # Prepare slack client
+  Slack.configure do |config|
+    config.token = ""
+  end
+  client = Slack::Web::Client.new
+  client.auth_test
+
+  Rails.application.config.slack_client = client
+  Rails.application.config.post = method(:slack_post)
 
   def authenticate_user
     # eagerly evaluate, in case this triggers an IpSpoofAttackError

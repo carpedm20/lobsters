@@ -20,6 +20,9 @@ class StoriesController < ApplicationController
         Countinual.count!("#{Rails.application.shortname}.stories.submitted",
           "+1")
 
+        pretext = "A new story posted by @#{@user.username}"
+        out = slack_post(pretext, @story.title, @story.description, @story.url)
+
         return redirect_to @story.comments_path
       end
     end

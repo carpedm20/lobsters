@@ -49,6 +49,9 @@ class CommentsController < ApplicationController
     if comment.valid? && params[:preview].blank? && comment.save
       comment.current_vote = { :vote => 1 }
 
+      pretext = "A new comment posted by @#{@user.username}"
+      out = slack_post(pretext, comment.story.title, comment.comment, comment.url)
+
       render :partial => "comments/postedreply", :layout => false,
         :content_type => "text/html", :locals => { :comment => comment }
     else

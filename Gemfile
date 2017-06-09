@@ -2,8 +2,6 @@ source "https://rubygems.org"
 
 gem "rails", "4.2.8"
 
-gem "unicorn"
-
 gem "mysql2", ">= 0.3.14"
 
 # uncomment to use PostgreSQL
@@ -30,6 +28,10 @@ gem "oauth"
 
 # for parsing incoming mail
 gem "mail"
+
+# for slack
+gem "slack-ruby-client"
+gem "faye-websocket"
 
 group :test, :development do
   gem "rspec-rails", "~> 3.5", ">= 3.5.2"
